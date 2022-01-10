@@ -9,4 +9,8 @@ class Dictionary
   def generate_dictionary_array(dictionary)
     File.read(dictionary).split
   end
+
+  def choose_secret_word(list)
+    list.sample
+  end
 end
