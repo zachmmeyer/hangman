@@ -3,16 +3,6 @@
 module Hangman
   # Game class
   class Game
-    def initialize
-      @dictionary = generate_dictionary_array('./dictionary.txt')
-    end
-
-    # Maybe the dictionary should be it's own class?
-
-    def generate_dictionary_array(dictionary)
-      File.read(dictionary).split
-    end
-
     def exit_game
       puts 'Good-bye!'
       exit
