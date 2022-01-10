@@ -3,7 +3,7 @@
 # Dictionary class
 class Dictionary
   def initialize
-    @dictionary = generate_dictionary_array('./dictionary.txt')
+    list = generate_dictionary_array('./dictionary.txt')
   end
 
   def generate_dictionary_array(dictionary)
