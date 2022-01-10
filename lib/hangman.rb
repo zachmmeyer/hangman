@@ -10,10 +10,18 @@ module Hangman
 
     def load_game
       puts 'Load Game'
+      # Save files (if any) are presented on screen
+      # Player is able to select one of the listed save files
+      # Once selected, all saved variables are loaded and the game is able to be played
     end
 
     def new_game
       puts 'New Game'
+      # Secret word is chosen at random
+      # Player makes a guess by submitting a letter
+      # Check is made to see if letter is part of Secret and has been found already
+      # Player continues to make guesses until they figure out the Secret or run out of available Guesses
+      # Player should be able to save current game
     end
 
     def choice_case(player_choice)
