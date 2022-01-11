@@ -8,4 +8,3 @@ class Computer
     @secret = File.readlines('./dictionary.txt').sample
   end
 end
-
