@@ -4,13 +4,13 @@ module Hangman
   # Game class
   class Game
     def exit_game
-      system(clear)
+      system('clear')
       puts 'Good-bye!'
       exit
     end
 
     def load_game
-      system(clear)
+      system('clear')
       puts 'Load Game'
       # Save files (if any) are presented on screen
       # Player is able to select one of the listed save files
@@ -18,7 +18,7 @@ module Hangman
     end
 
     def new_game
-      system(clear)
+      system('clear')
       puts 'New Game'
       # Secret word is chosen at random
       # Player makes a guess by submitting a letter
