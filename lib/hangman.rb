@@ -31,7 +31,6 @@ module Hangman
       puts 'Condolenceses, Player!'
       puts 'You lost!'
       puts "The word was: #{@computer.secret_word}"
-
       choose_game_mode
     end
 
@@ -63,13 +62,11 @@ module Hangman
         else
           hangman_round
         end
+      elsif @incorrectly_guessed_letters.include?(guess)
+        hangman_round
       else
-        if @incorrectly_guessed_letters.include?(guess)
-          hangman_round
-        else
-          @incorrectly_guessed_letters.push(guess)
-          @guesses -= 1
-        end
+        @incorrectly_guessed_letters.push(guess)
+        @guesses -= 1
       end
       if @hidden_secret == @computer.secret_word
         winner
