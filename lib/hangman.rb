@@ -54,7 +54,7 @@ module Hangman
       puts @hidden_secret
       puts "Incorrectly guessed letters: #{@incorrectly_guessed_letters}"
       puts 'Guess a letter: '
-      guess = gets.chomp
+      guess = gets.downcase.chomp
       if @computer.secret_word.include?(guess)
         if @correctly_guessed_letters.include?(guess) == false
           @hidden_secret = update_hidden_secret(guess, @computer.secret_word, @correctly_guessed_letters)
