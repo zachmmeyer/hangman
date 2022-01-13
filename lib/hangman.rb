@@ -47,13 +47,17 @@ module Hangman
       updated_hidden_secret.join('')
     end
 
-    def hangman_round
-      system('clear')
-      puts 'Hello Player!'
-      puts "You have #{@guesses} guesses left"
-      puts @hidden_secret
-      puts "Incorrectly guessed letters: #{@incorrectly_guessed_letters}"
-      puts 'Guess a letter: '
+    def check_for_end_game
+      if @hidden_secret == @computer.secret_word
+        winner
+      elsif @guesses.zero?
+        loser
+      else
+        hangman_round
+      end
+    end
+
+    def check_player_input
       guess = gets.downcase.chomp
       if @computer.secret_word.include?(guess)
         if @correctly_guessed_letters.include?(guess) == false
@@ -68,13 +72,17 @@ module Hangman
         @incorrectly_guessed_letters.push(guess)
         @guesses -= 1
       end
-      if @hidden_secret == @computer.secret_word
-        winner
-      elsif @guesses.zero?
-        loser
-      else
-        hangman_round
-      end
+    end
+
+    def hangman_round
+      system('clear')
+      puts 'Hello Player!'
+      puts "You have #{@guesses} guesses left"
+      puts @hidden_secret
+      puts "Incorrectly guessed letters: #{@incorrectly_guessed_letters}"
+      puts 'Guess a letter: '
+      check_player_input
+      check_for_end_game
     end
 
     def generate_hidden_secret(secret_word)
