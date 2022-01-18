@@ -14,7 +14,7 @@ module Hangman
     def load_game
       system('clear')
       if File.exist?('save.json')
-        save_data = JSON.parse(JSON.parse(File.read('save.json')))
+        save_data = JSON.parse(File.read('save.json'))
         @guesses = save_data[0]
         @computer = Computer.new
         @computer.load_saved_secret_word(save_data[1])
@@ -29,8 +29,7 @@ module Hangman
     end
 
     def save_game
-      save = [@guesses, @computer.secret_word, @incorrectly_guessed_letters, @hidden_secret, @correctly_guessed_letters]
-      save_data = JSON.generate(save)
+      save_data = [@guesses, @computer.secret_word, @incorrectly_guessed_letters, @hidden_secret, @correctly_guessed_letters]
       File.write('save.json', JSON.dump(save_data))
       exit_game
     end
