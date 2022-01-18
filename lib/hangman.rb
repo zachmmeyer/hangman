@@ -36,7 +36,7 @@ module Hangman
     end
 
     def delete_save
-      File.delete('save.json')
+      File.delete('save.json') if File.exist?('save.json')
     end
 
     def winner
