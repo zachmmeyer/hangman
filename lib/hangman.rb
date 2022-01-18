@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './computer'
+require 'json'
 
 module Hangman
   # Game class
@@ -11,11 +12,21 @@ module Hangman
     end
 
     def load_game
-      system('clear')
-      puts 'Load Game'
-      # Save files (if any) are presented on screen
-      # Player is able to select one of the listed save files
-      # Once selected, all saved variables are loaded and the game is able to be played
+      save_data = JSON.parse(JSON.parse(File.read('save.json')))
+      @guesses = save_data[0]
+      @computer = Computer.new
+      @computer.load_saved_secret_word(save_data[1])
+      @incorrectly_guessed_letters = save_data[2]
+      @hidden_secret = save_data[3]
+      @correctly_guessed_letters = save_data[4]
+      hangman_round
+    end
+
+    def save_game
+      save = [@guesses, @computer.secret_word, @incorrectly_guessed_letters, @hidden_secret, @correctly_guessed_letters]
+      save_data = JSON.generate(save)
+      File.write('save.json', JSON.dump(save_data))
+      exit_game
     end
 
     def winner
@@ -59,6 +70,8 @@ module Hangman
 
     def check_player_input
       guess = gets.downcase.chomp
+      save_game if guess == 'save'
+      exit_game if guess == 'exit'
       if @computer.secret_word.include?(guess)
         if @correctly_guessed_letters.include?(guess) == false
           @hidden_secret = update_hidden_secret(guess, @computer.secret_word, @correctly_guessed_letters)
@@ -97,7 +110,6 @@ module Hangman
       @guesses = 8
       generate_hidden_secret(@computer.secret_word)
       hangman_round
-      # Player should be able to save current game
     end
 
     def choice_case(player_choice)
