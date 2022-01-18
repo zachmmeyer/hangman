@@ -12,14 +12,20 @@ module Hangman
     end
 
     def load_game
-      save_data = JSON.parse(JSON.parse(File.read('save.json')))
-      @guesses = save_data[0]
-      @computer = Computer.new
-      @computer.load_saved_secret_word(save_data[1])
-      @incorrectly_guessed_letters = save_data[2]
-      @hidden_secret = save_data[3]
-      @correctly_guessed_letters = save_data[4]
-      hangman_round
+      system('clear')
+      if File.exist?('save.json')
+        save_data = JSON.parse(JSON.parse(File.read('save.json')))
+        @guesses = save_data[0]
+        @computer = Computer.new
+        @computer.load_saved_secret_word(save_data[1])
+        @incorrectly_guessed_letters = save_data[2]
+        @hidden_secret = save_data[3]
+        @correctly_guessed_letters = save_data[4]
+        hangman_round
+      else
+        puts 'Save file does not exist!'
+        choose_game_mode
+      end
     end
 
     def save_game
@@ -29,8 +35,13 @@ module Hangman
       exit_game
     end
 
+    def delete_save
+      File.delete('save.json')
+    end
+
     def winner
       system('clear')
+      delete_save
       puts 'Congratulations, Player!'
       puts 'You won!'
       puts "The word was: #{@computer.secret_word}"
@@ -39,6 +50,7 @@ module Hangman
 
     def loser
       system('clear')
+      delete_save
       puts 'Condolenceses, Player!'
       puts 'You lost!'
       puts "The word was: #{@computer.secret_word}"
